@@ -101,15 +101,12 @@ export default function ProjectCube() {
         }
       }
 
-      // Dispose resources
+      // Dispose of resources
       geometry.dispose()
       materials.forEach((material) => material.dispose())
-      scene.remove(cube)
       renderer.dispose()
     }
-  }, [isMounted])
+  }, [])
 
-  if (!isMounted) return <div className="w-[200px] h-[200px] max-w-full mx-auto bg-gray-900/30 rounded-lg" />
-
-  return <div ref={containerRef} className="w-[200px] h-[200px] max-w-full mx-auto" />
+  return <div ref={containerRef} style={{ width: "200px", height: "200px" }}></div>
 }

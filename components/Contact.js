@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { personalInfo } from "@/data/portfolio-data"
 
 export default function Contact() {
@@ -63,18 +64,52 @@ export default function Contact() {
     }
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.165, 0.84, 0.44, 1] },
+    },
+  }
+
   return (
     <section id="contact" className="py-32 bg-gray-900 section-transition">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading">Get In Touch</h2>
+        <motion.h2
+          className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          Get In Touch
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
-          <div>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.div variants={itemVariants}>
             <h3 className="text-3xl font-semibold mb-8 gradient-text">Contact Information</h3>
 
             <div className="space-y-8">
               <div className="flex items-start space-x-6">
-                <div className="bg-blue-600 p-4 rounded-full shadow-lg shadow-blue-600/30">
+                <div className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full shadow-lg shadow-blue-600/30">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-white"
@@ -97,7 +132,7 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start space-x-6">
-                <div className="bg-blue-600 p-4 rounded-full shadow-lg shadow-blue-600/30">
+                <div className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full shadow-lg shadow-blue-600/30">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-white"
@@ -120,7 +155,7 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start space-x-6">
-                <div className="bg-blue-600 p-4 rounded-full shadow-lg shadow-blue-600/30">
+                <div className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full shadow-lg shadow-blue-600/30">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-white"
@@ -152,11 +187,13 @@ export default function Contact() {
             <div className="mt-12">
               <h4 className="text-xl font-medium text-white mb-6">Connect With Me</h4>
               <div className="flex space-x-6">
-                <a
+                <motion.a
                   href={`https://${personalInfo.links.linkedin}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 p-4 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-600/50"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full transition-all shadow-lg"
+                  whileHover={{ scale: 1.1, boxShadow: "0 10px 25px rgba(0, 124, 240, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -166,13 +203,15 @@ export default function Contact() {
                   >
                     <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                   </svg>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
                   href={`https://${personalInfo.links.github}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 p-4 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-600/50"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full transition-all shadow-lg"
+                  whileHover={{ scale: 1.1, boxShadow: "0 10px 25px rgba(0, 124, 240, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -182,13 +221,15 @@ export default function Contact() {
                   >
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                   </svg>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
                   href={`https://${personalInfo.links.website}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 p-4 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-600/50"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-400 p-4 rounded-full transition-all shadow-lg"
+                  whileHover={{ scale: 1.1, boxShadow: "0 10px 25px rgba(0, 124, 240, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -204,12 +245,12 @@ export default function Contact() {
                       d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
                     />
                   </svg>
-                </a>
+                </motion.a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={itemVariants}>
             <form onSubmit={handleSubmit} className="card p-8 shadow-xl backdrop-blur-lg">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
                 <div>
@@ -272,10 +313,12 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all disabled:opacity-70 shadow-lg hover:shadow-blue-600/30 flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-medium py-3 px-6 rounded-lg transition-all disabled:opacity-70 shadow-lg flex items-center justify-center"
+                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0, 124, 240, 0.5)" }}
+                whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? (
                   <>
@@ -304,50 +347,62 @@ export default function Contact() {
                 ) : (
                   "Send Message"
                 )}
-              </button>
+              </motion.button>
 
-              {submitStatus === "success" && (
-                <div className="mt-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-center">
-                  <p className="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Your message has been sent successfully! I'll get back to you soon.
-                  </p>
-                </div>
-              )}
+              <AnimatePresence>
+                {submitStatus === "success" && (
+                  <motion.div
+                    className="mt-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <p className="flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Your message has been sent successfully! I'll get back to you soon.
+                    </p>
+                  </motion.div>
+                )}
 
-              {submitStatus === "error" && (
-                <div className="mt-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-center">
-                  <p className="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {errorMessage}
-                  </p>
-                </div>
-              )}
+                {submitStatus === "error" && (
+                  <motion.div
+                    className="mt-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <p className="flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {errorMessage}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )
