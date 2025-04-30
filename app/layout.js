@@ -69,6 +69,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({ children }) {
