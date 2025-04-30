@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Let's also make sure we have a proper next.config.js file:
 
-```js file="next.config.js"
+\`\`\`js file="next.config.js"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
