@@ -72,53 +72,6 @@ body {
   padding-bottom: 8rem;
 }
 
-/* Parallax container */
-.parallax-container {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Decorative elements */
-.floating-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(45deg, rgba(0, 124, 240, 0.1), rgba(0, 223, 216, 0.1));
-  filter: blur(50px);
-  z-index: 0;
-}
-
-.floating-square {
-  position: absolute;
-  background: linear-gradient(45deg, rgba(0, 124, 240, 0.08), rgba(0, 223, 216, 0.08));
-  filter: blur(60px);
-  z-index: 0;
-  transform: rotate(45deg);
-}
-
-/* Improved scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #111;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #444;
-}
-
-/* Parallax text effect */
-.parallax-text {
-  position: relative;
-  z-index: 1;
-}
-
 /* Improved section transitions */
 .section-transition {
   position: relative;
@@ -149,52 +102,22 @@ body {
   z-index: 1;
 }
 
-/* Enhanced animations */
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+/* Improved scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+::-webkit-scrollbar-track {
+  background: #111;
 }
 
-@keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 124, 240, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(0, 124, 240, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 124, 240, 0);
-  }
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite;
-}
-
-/* Glass morphism effects */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-dark {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
 }
 
 /* Text highlight effect */
@@ -207,18 +130,4 @@ body {
 *:focus {
   outline: 2px solid rgba(0, 124, 240, 0.5);
   outline-offset: 2px;
-}
-
-/* Gradient borders */
-.gradient-border {
-  position: relative;
-  border-radius: 10px;
-  padding: 1px;
-  background: linear-gradient(45deg, #007cf0, #00dfd8);
-}
-
-.gradient-border-content {
-  background: #111;
-  border-radius: 9px;
-  padding: 20px;
 }

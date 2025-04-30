@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 import { personalInfo } from "@/data/portfolio-data"
 
 export default function Header() {
@@ -26,36 +25,23 @@ export default function Header() {
   ]
 
   return (
-    <motion.header
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-black/80 backdrop-blur-md py-2" : "bg-transparent py-4"
       }`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <motion.div
-          className="text-2xl font-bold gradient-text"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
+        <div className="text-2xl font-bold gradient-text">
           {personalInfo.displayName}
           <span className="text-white">.</span>
-        </motion.div>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
           {navItems.map((item) => (
-            <motion.a
-              key={item.name}
-              href={item.href}
-              className="text-gray-300 hover:text-white transition-colors"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
-            >
+            <a key={item.name} href={item.href} className="text-gray-300 hover:text-white transition-colors">
               {item.name}
-            </motion.a>
+            </a>
           ))}
         </nav>
 
@@ -79,13 +65,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <motion.div
-            className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-md py-4 md:hidden"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
+          <div className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-md py-4 md:hidden">
             <div className="flex flex-col space-y-4 px-4">
               {navItems.map((item) => (
                 <a
@@ -98,9 +78,9 @@ export default function Header() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.header>
+    </header>
   )
 }

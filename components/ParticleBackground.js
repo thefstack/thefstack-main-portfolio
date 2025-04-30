@@ -89,26 +89,11 @@ export default function ParticleBackground() {
       particles.rotation.x = elapsedTime * 0.02
       particles.rotation.y = elapsedTime * 0.01
 
-      // Move particles based on mouse position
-      const mouseX = (window.mouseX || 0) - window.innerWidth / 2
-      const mouseY = (window.mouseY || 0) - window.innerHeight / 2
-
-      particles.rotation.x += mouseY * 0.00001
-      particles.rotation.y += mouseX * 0.00001
-
       // Render
       renderer.render(scene, camera)
     }
 
     animate()
-
-    // Track mouse position
-    const handleMouseMove = (event) => {
-      window.mouseX = event.clientX
-      window.mouseY = event.clientY
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
 
     // Handle resize
     const handleResize = () => {
@@ -123,7 +108,6 @@ export default function ParticleBackground() {
 
     // Cleanup
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("resize", handleResize)
 
       // Dispose resources

@@ -7,7 +7,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 export default function TechStack() {
   const containerRef = useRef(null)
   const [isMounted, setIsMounted] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsMounted(true)
@@ -100,19 +99,6 @@ export default function TechStack() {
       }
     }
 
-    // Mouse move handler for container
-    const handleMouseMove = (event) => {
-      if (!containerRef.current) return
-
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1
-
-      setMousePosition({ x, y })
-    }
-
-    containerRef.current.addEventListener("mousemove", handleMouseMove)
-
     // Animation
     const clock = new THREE.Clock()
 
@@ -121,22 +107,10 @@ export default function TechStack() {
 
       const elapsedTime = clock.getElapsedTime()
 
-      // Apply mouse-based movement to cubes
+      // Base rotation for cubes
       cubes.forEach((cube, index) => {
-        // Base rotation
         cube.rotation.x = 0.2 * elapsedTime + index * 0.1
         cube.rotation.y = 0.3 * elapsedTime + index * 0.1
-
-        // Mouse influence
-        const distanceFromCenter = new THREE.Vector3().copy(cube.position).length()
-        const influenceFactor = (1 / (distanceFromCenter + 1)) * 0.5
-
-        // Move cubes slightly based on mouse position
-        const targetX = cube.position.x + mousePosition.x * influenceFactor
-        const targetY = cube.position.y + mousePosition.y * influenceFactor
-
-        cube.position.x += (targetX - cube.position.x) * 0.05
-        cube.position.y += (targetY - cube.position.y) * 0.05
       })
 
       // Update controls
@@ -160,7 +134,6 @@ export default function TechStack() {
     return () => {
       window.removeEventListener("resize", handleResize)
       if (containerRef.current) {
-        containerRef.current.removeEventListener("mousemove", handleMouseMove)
         if (containerRef.current.contains(renderer.domElement)) {
           containerRef.current.removeChild(renderer.domElement)
         }
@@ -181,15 +154,9 @@ export default function TechStack() {
       lineMaterial.dispose()
       renderer.dispose()
     }
-  }, [isMounted, mousePosition])
+  }, [isMounted])
 
   if (!isMounted) return <div className="w-[400px] h-[400px] max-w-full mx-auto bg-gray-900/30 rounded-lg" />
 
-  return (
-    <div
-      ref={containerRef}
-      className="w-[400px] h-[400px] max-w-full mx-auto cursor-move"
-      title="Move your cursor to interact with the tech stack"
-    />
-  )
+  return <div ref={containerRef} className="w-[400px] h-[400px] max-w-full mx-auto" />
 }

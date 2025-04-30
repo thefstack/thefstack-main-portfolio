@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { personalInfo } from "@/data/portfolio-data"
 import Link from "next/link"
 
@@ -12,13 +11,7 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col items-center justify-center">
           {/* Social Icons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex space-x-6 mb-4"
-          >
+          <div className="flex space-x-6 mb-4">
             <a
               href={`https://${personalInfo.links.github}`}
               target="_blank"
@@ -61,16 +54,10 @@ export default function Footer() {
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </a>
-          </motion.div>
+          </div>
 
           {/* Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex space-x-6 mb-4"
-          >
+          <div className="flex space-x-6 mb-4">
             <Link href="/privacy-policy" className="text-gray-700 hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>
@@ -80,18 +67,12 @@ export default function Footer() {
             <Link href="#contact" className="text-gray-700 hover:text-gray-900 transition-colors">
               Contact
             </Link>
-          </motion.div>
+          </div>
 
           {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-gray-700"
-          >
+          <div className="text-gray-700">
             <p>&copy; {currentYear} thefstack. All rights reserved.</p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </footer>

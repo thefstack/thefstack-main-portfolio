@@ -7,7 +7,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 export default function ProjectCube() {
   const containerRef = useRef(null)
   const [isMounted, setIsMounted] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsMounted(true)
@@ -68,29 +67,13 @@ export default function ProjectCube() {
     )
     cube.add(wireframe)
 
-    // Mouse move handler for container
-    const handleMouseMove = (event) => {
-      if (!containerRef.current) return
-
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1
-
-      setMousePosition({ x, y })
-    }
-
-    containerRef.current.addEventListener("mousemove", handleMouseMove)
-
     // Animation
     const animate = () => {
       requestAnimationFrame(animate)
 
-      // Apply mouse-based rotation
-      const targetRotationX = mousePosition.y * 1.5
-      const targetRotationY = mousePosition.x * 1.5
-
-      cube.rotation.x += (targetRotationX - cube.rotation.x) * 0.1
-      cube.rotation.y += (targetRotationY - cube.rotation.y) * 0.1
+      // Simple rotation
+      cube.rotation.x += 0.01
+      cube.rotation.y += 0.01
 
       // Update controls
       controls.update()
@@ -113,7 +96,6 @@ export default function ProjectCube() {
     return () => {
       window.removeEventListener("resize", handleResize)
       if (containerRef.current) {
-        containerRef.current.removeEventListener("mousemove", handleMouseMove)
         if (containerRef.current.contains(renderer.domElement)) {
           containerRef.current.removeChild(renderer.domElement)
         }
@@ -125,15 +107,9 @@ export default function ProjectCube() {
       scene.remove(cube)
       renderer.dispose()
     }
-  }, [isMounted, mousePosition])
+  }, [isMounted])
 
   if (!isMounted) return <div className="w-[200px] h-[200px] max-w-full mx-auto bg-gray-900/30 rounded-lg" />
 
-  return (
-    <div
-      ref={containerRef}
-      className="w-[200px] h-[200px] max-w-full mx-auto cursor-move"
-      title="Move your cursor to interact with the cube"
-    />
-  )
+  return <div ref={containerRef} className="w-[200px] h-[200px] max-w-full mx-auto" />
 }

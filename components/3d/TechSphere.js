@@ -7,7 +7,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 export default function TechSphere() {
   const containerRef = useRef(null)
   const [isMounted, setIsMounted] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsMounted(true)
@@ -112,38 +111,12 @@ export default function TechSphere() {
       }
     }
 
-    // Mouse move handler for container
-    const handleMouseMove = (event) => {
-      if (!containerRef.current) return
-
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1
-
-      setMousePosition({ x, y })
-    }
-
-    containerRef.current.addEventListener("mousemove", handleMouseMove)
-
     // Animation
     const animate = () => {
       requestAnimationFrame(animate)
 
       // Rotate sphere
       sphere.rotation.y += 0.001
-
-      // Apply mouse-based rotation
-      const targetRotationX = mousePosition.y * 0.5
-      const targetRotationY = mousePosition.x * 0.5
-
-      sphere.rotation.x += (targetRotationX - sphere.rotation.x) * 0.05
-      sphere.rotation.y += (targetRotationY - sphere.rotation.y) * 0.05
-
-      // Also affect icons slightly
-      icons.forEach((icon) => {
-        icon.rotation.x += (targetRotationX - icon.rotation.x) * 0.02
-        icon.rotation.y += (targetRotationY - icon.rotation.y) * 0.02
-      })
 
       // Update controls
       controls.update()
@@ -166,7 +139,6 @@ export default function TechSphere() {
     return () => {
       window.removeEventListener("resize", handleResize)
       if (containerRef.current) {
-        containerRef.current.removeEventListener("mousemove", handleMouseMove)
         if (containerRef.current.contains(renderer.domElement)) {
           containerRef.current.removeChild(renderer.domElement)
         }
@@ -191,15 +163,9 @@ export default function TechSphere() {
       scene.remove(sphere)
       renderer.dispose()
     }
-  }, [isMounted, mousePosition])
+  }, [isMounted])
 
   if (!isMounted) return <div className="w-[500px] h-[500px] max-w-full mx-auto bg-gray-900/30 rounded-lg" />
 
-  return (
-    <div
-      ref={containerRef}
-      className="w-[500px] h-[500px] max-w-full mx-auto cursor-move"
-      title="Move your cursor to interact with the sphere"
-    />
-  )
+  return <div ref={containerRef} className="w-[500px] h-[500px] max-w-full mx-auto" />
 }

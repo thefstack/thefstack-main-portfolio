@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useState } from "react"
 import { personalInfo } from "@/data/portfolio-data"
 
 export default function Contact() {
@@ -15,15 +14,6 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
   const [errorMessage, setErrorMessage] = useState("")
-  const sectionRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  })
-
-  const y1 = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"])
-  const y2 = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -74,36 +64,12 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" ref={sectionRef} className="py-32 bg-gray-900 section-transition parallax-container">
+    <section id="contact" className="py-32 bg-gray-900 section-transition">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Get In Touch
-        </motion.h2>
-
-        {/* Decorative elements with parallax */}
-        <motion.div
-          className="floating-circle w-96 h-96 right-[2%] top-[10%]"
-          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]) }}
-        />
-        <motion.div
-          className="floating-square w-72 h-72 left-[5%] bottom-[15%]"
-          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-45%"]) }}
-        />
+        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading">Get In Touch</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ y: y1 }}
-          >
+          <div>
             <h3 className="text-3xl font-semibold mb-8 gradient-text">Contact Information</h3>
 
             <div className="space-y-8">
@@ -241,15 +207,9 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ y: y2 }}
-          >
+          <div>
             <form onSubmit={handleSubmit} className="card p-8 shadow-xl backdrop-blur-lg">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
                 <div>
@@ -347,11 +307,7 @@ export default function Contact() {
               </button>
 
               {submitStatus === "success" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-center"
-                >
+                <div className="mt-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-center">
                   <p className="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -367,15 +323,11 @@ export default function Contact() {
                     </svg>
                     Your message has been sent successfully! I'll get back to you soon.
                   </p>
-                </motion.div>
+                </div>
               )}
 
               {submitStatus === "error" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-center"
-                >
+                <div className="mt-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-center">
                   <p className="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -391,10 +343,10 @@ export default function Contact() {
                     </svg>
                     {errorMessage}
                   </p>
-                </motion.div>
+                </div>
               )}
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

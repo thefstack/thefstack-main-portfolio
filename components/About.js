@@ -1,52 +1,15 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
 import { personalInfo } from "@/data/portfolio-data"
 
 export default function About() {
-  const sectionRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  })
-
-  const y1 = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"])
-  const y2 = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
-
   return (
-    <section id="about" ref={sectionRef} className="py-32 bg-gray-900 section-transition parallax-container">
+    <section id="about" className="py-32 bg-gray-900 section-transition">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          About Me
-        </motion.h2>
-
-        {/* Decorative elements with parallax */}
-        <motion.div
-          className="floating-circle w-72 h-72 left-[5%] top-[20%]"
-          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]) }}
-        />
-        <motion.div
-          className="floating-square w-56 h-56 right-[10%] bottom-[10%]"
-          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]) }}
-        />
+        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center section-heading">About Me</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ y: y1 }}
-          >
+          <div>
             <div className="relative">
               <div className="w-full h-96 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-lg overflow-hidden shadow-xl shadow-blue-600/20">
                 <div className="absolute inset-0 flex items-center justify-center text-white text-8xl font-bold">
@@ -70,15 +33,9 @@ export default function About() {
                 </svg>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ y: y2 }}
-          >
+          <div>
             <h3 className="text-3xl font-semibold mb-6 gradient-text">Full Stack Developer</h3>
             <p className="text-gray-300 mb-8 text-lg leading-relaxed">
               I'm a passionate Full Stack Developer with experience in building web applications using modern
@@ -111,7 +68,7 @@ export default function About() {
             >
               Contact Me
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
