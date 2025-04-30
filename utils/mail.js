@@ -17,7 +17,6 @@ const sendMail = async (email, subject, html) => {
     subject,
     html,
   }
-
   try {
     await transporter.sendMail(mailOption)
     return true
