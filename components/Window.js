@@ -23,6 +23,7 @@ function getInitialWindowPosition(appId) {
   // Get window dimensions
   const windowWidth = typeof window !== "undefined" ? window.innerWidth : 1000
   const windowHeight = typeof window !== "undefined" ? window.innerHeight : 800
+  const isMobile = typeof window !== "undefined" ? window.innerWidth <= 768 : false
 
   // Default sizes for different app types
   let width = 800
@@ -30,56 +31,67 @@ function getInitialWindowPosition(appId) {
   let left = 100
   let top = 50
 
-  // Adjust size for Chrome
-  if (appId === "chrome" || appId === "github" || appId === "linkedin" || appId === "instagram") {
-    width = Math.min(1000, windowWidth * 0.8) // 80% of screen width, max 1000px
-    height = Math.min(600, windowHeight * 0.7) // 70% of screen height, max 600px
+  // Adjust for mobile screens
+  if (isMobile) {
+    width = windowWidth * 0.95 // 95% of screen width on mobile
+    height = windowHeight * 0.7 // 70% of screen height on mobile
+    left = windowWidth * 0.025 // Center horizontally
+    top = windowHeight * 0.1 // Position near the top on mobile
+  } else {
+    // Desktop sizing logic (existing code)
+    // Adjust size for Chrome
+    if (appId === "chrome" || appId === "github" || appId === "linkedin" || appId === "instagram") {
+      width = Math.min(1000, windowWidth * 0.8) // 80% of screen width, max 1000px
+      height = Math.min(600, windowHeight * 0.7) // 70% of screen height, max 600px
 
-    // Center the window
-    left = Math.max(0, (windowWidth - width) / 2)
-    top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
-  }
+      // Center the window
+      left = Math.max(0, (windowWidth - width) / 2)
+      top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+    }
 
-  // Adjust size for folder windows
-  if (
-    ["projects", "personal-info", "contact", "skills", "education", "certifications", "additional-info"].includes(appId)
-  ) {
-    width = Math.min(900, windowWidth * 0.75) // 75% of screen width, max 900px
-    height = Math.min(700, windowHeight * 0.8) // 80% of screen height, max 700px
+    // Adjust size for folder windows
+    if (
+      ["projects", "personal-info", "contact", "skills", "education", "certifications", "additional-info"].includes(
+        appId,
+      )
+    ) {
+      width = Math.min(900, windowWidth * 0.75) // 75% of screen width, max 900px
+      height = Math.min(700, windowHeight * 0.8) // 80% of screen height, max 700px
 
-    // Center the window
-    left = Math.max(0, (windowWidth - width) / 2)
-    top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
-  }
+      // Center the window
+      left = Math.max(0, (windowWidth - width) / 2)
+      top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+    }
 
-  // Specific adjustment for file explorer
-  if (appId === "file-explorer") {
-    width = Math.min(900, windowWidth * 0.75) // 75% of screen width, max 900px
-    height = Math.min(700, windowHeight * 0.8) // 80% of screen height, max 700px
+    // Specific adjustment for file explorer
+    if (appId === "file-explorer") {
+      width = Math.min(900, windowWidth * 0.75) // 75% of screen width, max 900px
+      height = Math.min(700, windowHeight * 0.8) // 80% of screen height, max 700px
 
-    // Center the window
-    left = Math.max(0, (windowWidth - width) / 2)
-    top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
-  }
+      // Center the window
+      left = Math.max(0, (windowWidth - width) / 2)
+      top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+    }
 
-  // Specific adjustment for mail
-  if (appId === "mail") {
-    width = Math.min(800, windowWidth * 0.7) // 70% of screen width, max 800px
-    height = Math.min(500, windowHeight * 0.6) // 60% of screen height, max 500px
+    // Specific adjustment for mail
+    if (appId === "mail") {
+      width = Math.min(800, windowWidth * 0.7) // 70% of screen width, max 800px
+      height = Math.min(500, windowHeight * 0.6) // 60% of screen height, max 500px
 
-    // Center the window
-    left = Math.max(0, (windowWidth - width) / 2)
-    top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
-  }
+      // Center the window
+      left = Math.max(0, (windowWidth - width) / 2)
+      top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+    }
 
-  // Specific adjustment for resume PDF
-  if (appId === "resume-pdf") {
-    width = Math.min(900, windowWidth * 0.8) // 80% of screen width, max 900px
-    height = Math.min(800, windowHeight * 0.85) // 85% of screen height, max 800px
+    // Specific adjustment for resume PDF
+    if (appId === "resume-pdf") {
+      width = Math.min(900, windowWidth * 0.8) // 80% of screen width, max 900px
+      height = Math.min(800, windowHeight * 0.85) // 85% of screen height, max 800px
 
-    // Center the window
-    left = Math.max(0, (windowWidth - width) / 2)
-    top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+      // Center the window
+      left = Math.max(0, (windowWidth - width) / 2)
+      top = Math.max(0, (windowHeight - height - 40) / 3) // Account for taskbar
+    }
   }
 
   // Ensure window is fully visible

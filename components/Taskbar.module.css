@@ -170,11 +170,38 @@
 }
 
 @media (max-width: 480px) {
-  .taskbarIcon {
+  .taskbar {
+    height: 36px; /* Slightly smaller taskbar on very small screens */
+  }
+
+  .startButton {
     width: 40px;
   }
 
+  .taskbarIcon {
+    width: 36px;
+  }
+
+  /* Ensure the taskbar is always visible at the bottom of the screen */
+  .taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100; /* Higher z-index to ensure it's above other elements */
+  }
+
+  /* Hide less important elements on very small screens */
   .systemTray {
+    display: none;
+  }
+
+  .dateTime {
+    padding: 0 5px;
+  }
+
+  /* Ensure the date is hidden on small screens */
+  .date {
     display: none;
   }
 }
