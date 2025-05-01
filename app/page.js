@@ -8,6 +8,7 @@ import WindowsLogo from "@/components/WindowsLogo"
 import LoginScreen from "@/components/LoginScreen"
 import Loader from "@/components/Loader"
 import styles from "./page.module.css"
+import { trackLogin, trackLogout, trackAppLaunch, initAnalytics } from "@/lib/analytics"
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -19,8 +20,11 @@ export default function Home() {
   const [loaderFading, setLoaderFading] = useState(false)
   const contentRef = useRef(null)
 
-  // Check if user is already logged in
+  // Initialize analytics and check if user is already logged in
   useEffect(() => {
+    // Initialize analytics
+    initAnalytics()
+
     // Check localStorage for signin status
     const isSignedIn = localStorage.getItem("signin") === "true"
 
@@ -43,9 +47,15 @@ export default function Home() {
 
   const handleLogin = () => {
     setIsLoggedIn(true)
+    // Track login event
+    trackLogin()
+    // Store login state in localStorage
+    localStorage.setItem("signin", "true")
   }
 
   const handleLogout = () => {
+    // Track logout event
+    trackLogout()
     // Clear login state from localStorage
     localStorage.removeItem("signin")
     setIsLoggedIn(false)
@@ -56,6 +66,9 @@ export default function Home() {
   }
 
   const openWindow = (app) => {
+    // Track app launch
+    trackAppLaunch(app.id)
+
     // Check if the app is minimized
     if (minimizedWindows.includes(app.id)) {
       // Remove from minimized windows
