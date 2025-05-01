@@ -37,6 +37,10 @@ function getInitialWindowPosition(appId) {
     height = windowHeight * 0.7 // 70% of screen height on mobile
     left = windowWidth * 0.025 // Center horizontally
     top = windowHeight * 0.1 // Position near the top on mobile
+
+    // Ensure height doesn't exceed available space accounting for taskbar
+    const maxHeight = typeof window !== "undefined" ? window.innerHeight - 50 : 800
+    height = Math.min(height, maxHeight)
   } else {
     // Desktop sizing logic (existing code)
     // Adjust size for Chrome
@@ -219,6 +223,7 @@ export default function Window({ app, onClose, isActive, onFocus, zIndex, onMini
           left: 0,
           width: "100%",
           height: "calc(100% - 40px)", // Account for taskbar
+          maxHeight: "calc(100dvh - 40px)", // Use dvh for mobile browsers
           borderRadius: 0,
         }
       : {

@@ -266,25 +266,10 @@
 
 /* Add specific fixes for very small screens */
 @media (max-width: 480px) {
-  .toolbar {
-    padding: 4px 4px 0;
-  }
-
-  .tab {
-    min-width: 150px;
-    max-width: 180px;
-    height: 28px;
-    padding: 6px 8px;
-  }
-
-  .tabTitle {
-    font-size: 11px;
-  }
-
   /* Fix for bottom tabbar visibility on mobile */
   .browserContent {
     height: calc(100% - 80px); /* Adjust height to ensure tabbar is visible */
-    max-height: calc(100vh - 160px); /* Prevent overflow on very small screens */
+    max-height: calc(100dvh - 160px); /* Prevent overflow on very small screens */
   }
 
   /* Ensure the iframe doesn't overflow */
